@@ -3,15 +3,26 @@ import { useState } from "react";
 import { View, Text, SafeAreaView, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient'
 import { Image } from 'expo-image'
+import { FIREBASE_AUTH } from '@/firebaseConfig'
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const onPress = () => {
-        router.push("/(tabs)")
-    };
+    const auth = FIREBASE_AUTH;
+
+
+    const signIn = () => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((user_data) => {
+            console.log(user_data);
+            router.push('/(tabs)')
+        }).catch((err) => {
+            alert(err.message);
+        });
+    }
 
     return (
         <View style={styles.body}>
@@ -27,7 +38,7 @@ export default function Login() {
                         style={styles.input}
                         onChangeText={setEmail}
                         value={email}
-                        placeholder="Username or Email"
+                        placeholder="Email"
                         keyboardType="email-address"
                     />
                 </View>
@@ -38,14 +49,15 @@ export default function Login() {
                         style={styles.input}
                         onChangeText={setPassword}
                         value={password}
-                        placeholder="Insira sua senha"
+                        placeholder="Password"
                         keyboardType="numeric"
                         secureTextEntry={true}
                     />
                 </View>
+                
             </SafeAreaView>
             <View style={styles.loginButton}>
-                <TouchableOpacity style={styles.button} onPress={onPress}>
+                <TouchableOpacity style={styles.button} onPress={signIn}>
                     <Text style={styles.login}>Login</Text>
                 </TouchableOpacity>
                 <Text style={styles.textWhite}>Forgot password?</Text>
@@ -63,11 +75,10 @@ export default function Login() {
 const styles = StyleSheet.create({
     login: {
         color: '#611770FF',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     button: {
         backgroundColor: '#f5f5f5f5',
-        borderWidth: 2,     
         borderRadius: 20,
         height: 55,
         width: 300,

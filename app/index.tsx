@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Image } from 'expo-image'
 import { FIREBASE_AUTH } from '@/firebaseConfig'
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Header } from "react-native/Libraries/NewAppScreen";
 
 
 export default function Login() {
@@ -27,9 +28,13 @@ export default function Login() {
     return (
         <View style={styles.body}>
              <LinearGradient
-                colors={['#8709A0FF', '#611770FF', '#550F83FF']}
+                colors={['#0d0d14', '#181820']}
                 style={styles.background}
             />  
+            <View style={styles.marca}>
+                <Image style={styles.logo} source={'../assets/images/spotify.png'} alt="logo"/>
+                <Text style={styles.title}>Spotify</Text>
+            </View>
 
             <SafeAreaView style={styles.inputs}>
                 <View>
@@ -60,11 +65,11 @@ export default function Login() {
                 <TouchableOpacity style={styles.button} onPress={signIn}>
                     <Text style={styles.login}>Login</Text>
                 </TouchableOpacity>
-                <Text style={styles.textWhite}>Forgot password?</Text>
+                <Text style={styles.textGreen}>Forgot password?</Text>
             </View>
             <View style={styles.register}>
                 <Text style={styles.textWhite}>Don't have an account?</Text>
-                <Link style={styles.textWhite} href={"/register"}>Sign Up</Link>
+                <Link style={styles.textGreen} href={"/register"}>Sign Up</Link>
             </View>
         </View>
     );
@@ -73,17 +78,29 @@ export default function Login() {
 
 
 const styles = StyleSheet.create({
+    marca: {
+        
+    },
+    title: {
+        color: 'white',
+        fontSize: 30,
+        fontWeight: 'bold'
+    },
+    logo: {
+        width: 100,
+        height: 100,
+    },
     login: {
-        color: '#611770FF',
+        color: 'white',
         fontWeight: 'bold',
     },
     button: {
-        backgroundColor: '#f5f5f5f5',
         borderRadius: 20,
         height: 55,
         width: 300,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#3da64c'
     },
     input: {
         borderColor: '#F5F5F5FF',
@@ -112,14 +129,18 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         justifyContent: 'center',
+        alignItems: 'center',
         gap: 35
     },
     inputs: {
         gap: 35,
         alignItems: 'center'
     },
+    textGreen: {
+        color: '#3da64c'
+    },
     textWhite: {
-        color: '#f5f5f5f5'
+        color: '#f5f5f5'
     },
     loginButton: {
         alignItems: 'center',
